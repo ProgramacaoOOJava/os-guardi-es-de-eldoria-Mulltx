@@ -1,30 +1,29 @@
-// Classe principal, responsável por criar e testar os personagens
+import java.util.ArrayList;
+
+// Classe principal, responsável por criar os personagens e demonstrar o polimorfismo
 public class Main {
 
     public static void main(String[] args) {
 
-        // Instanciando o primeiro personagem com o operador new
-        Personagem personagem1 = new Personagem();
+        // Criando uma estrutura para armazenar diferentes tipos de personagem
+        ArrayList<Personagem> personagens = new ArrayList<>();
 
-        // Atribuindo valores diretamente aos atributos do primeiro personagem
-        personagem1.nome = "Arthemis";
-        personagem1.classe = "Arqueira";
-        personagem1.nivel = 5;
-        personagem1.pontosDeVida = 80;
-        personagem1.poderBase = 12.5;
+        // Instanciando um Guerreiro e adicionando à lista
+        personagens.add(new Guerreiro("Arthus", 6, 120, 18.0, "Espada Flamejante"));
 
-        // Instanciando o segundo personagem com o operador new
-        Personagem personagem2 = new Personagem();
+        // Instanciando um Mago e adicionando à lista
+        personagens.add(new Mago("Elenara", 7, 90, 25.5, "Bola de Fogo"));
 
-        // Atribuindo valores diretamente aos atributos do segundo personagem
-        personagem2.nome = "Draven";
-        personagem2.classe = "Guerreiro";
-        personagem2.nivel = 8;
-        personagem2.pontosDeVida = 150;
-        personagem2.poderBase = 20.0;
+        // Iterando sobre a lista de personagens de forma genérica
+        for (Personagem personagem : personagens) {
+            // Chama o método comum, herdado da superclasse
+            personagem.exibirStatus();
 
-        // Chamando o método exibirStatus() para cada um dos personagens criados
-        personagem1.exibirStatus();
-        personagem2.exibirStatus();
+            // Chama o método sobrescrito, com comportamento definido em cada subclasse
+            // (polimorfismo de tempo de execução: o Java decide qual versão executar)
+            personagem.usarHabilidadeEspecial();
+
+            System.out.println("-----------------------------");
+        }
     }
 }

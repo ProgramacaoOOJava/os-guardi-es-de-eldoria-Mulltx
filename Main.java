@@ -1,29 +1,51 @@
-import java.util.ArrayList;
-
-// Classe principal, responsável por criar os personagens e demonstrar o polimorfismo
+// Classe principal, responsável por criar personagens, grupos e demonstrar as batalhas
 public class Main {
 
     public static void main(String[] args) {
 
-        // Criando uma estrutura para armazenar diferentes tipos de personagem
-        ArrayList<Personagem> personagens = new ArrayList<>();
+        // Criando personagens do tipo Guerreiro
+        Guerreiro arthus = new Guerreiro("Arthus", 6, 120, 18.0, "Espada Flamejante");
+        Guerreiro draven = new Guerreiro("Draven", 8, 150, 20.0, "Machado de Guerra");
 
-        // Instanciando um Guerreiro e adicionando à lista
-        personagens.add(new Guerreiro("Arthus", 6, 120, 18.0, "Espada Flamejante"));
+        // Criando personagens do tipo Mago
+        Mago elenara = new Mago("Elenara", 7, 90, 25.5, "Bola de Fogo");
+        Mago fenrys = new Mago("Fenrys", 5, 85, 22.0, "Raio Congelante");
 
-        // Instanciando um Mago e adicionando à lista
-        personagens.add(new Mago("Elenara", 7, 90, 25.5, "Bola de Fogo"));
+        // Criando dois grupos distintos
+        Grupo grupoA = new Grupo("Guardiões da Luz");
+        Grupo grupoB = new Grupo("Legião das Sombras");
 
-        // Iterando sobre a lista de personagens de forma genérica
-        for (Personagem personagem : personagens) {
-            // Chama o método comum, herdado da superclasse
-            personagem.exibirStatus();
+        // Adicionando personagens ao grupo A
+        grupoA.adicionarPersonagem(arthus);
+        grupoA.adicionarPersonagem(elenara);
 
-            // Chama o método sobrescrito, com comportamento definido em cada subclasse
-            // (polimorfismo de tempo de execução: o Java decide qual versão executar)
-            personagem.usarHabilidadeEspecial();
+        // Adicionando personagens ao grupo B
+        grupoB.adicionarPersonagem(draven);
+        grupoB.adicionarPersonagem(fenrys);
 
-            System.out.println("-----------------------------");
-        }
+        // Ordenando os personagens de cada grupo por nível antes das batalhas
+        grupoA.ordenarPorNivel();
+        grupoB.ordenarPorNivel();
+
+        // Listando os personagens de cada grupo
+        grupoA.listarPersonagens();
+        grupoB.listarPersonagens();
+
+        // Demonstrando o uso das habilidades especiais de cada personagem (polimorfismo)
+        System.out.println("=== Habilidades Especiais ===");
+        arthus.usarHabilidadeEspecial();
+        elenara.usarHabilidadeEspecial();
+        draven.usarHabilidadeEspecial();
+        fenrys.usarHabilidadeEspecial();
+        System.out.println("-----------------------------");
+
+        // Realizando uma batalha avulsa entre dois personagens específicos
+        System.out.println("=== Batalha Avulsa ===");
+        grupoA.batalhar(arthus, draven);
+        System.out.println("-----------------------------");
+
+        // Usando a Arena para batalhar os dois grupos inteiros, em pares
+        Arena arena = new Arena();
+        arena.batalharGrupos(grupoA, grupoB);
     }
 }
